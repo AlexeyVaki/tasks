@@ -5,18 +5,20 @@ class TaskJ:
     def get(self, s):
         self.d[0] = [s[0]]
         for i in range(1, len(s)):
-            p = True
-            for k in self.d.keys():
-                if self.d[k][-1] > s[i]:
-                    self.d[k] = self.d[k - 1] + [s[i]]
-                    p = False
-                if self.d[k][-1] == s[i]:
-                    p = False
-            if p:
-                self.d[len(self.d.keys())] = self.d[len(self.d.keys()) - 1] + [s[i]]
-        return self.d
+            m = []
+            for j in range(len(self.d)):
+                if s[j] < s[i]:
+                    if len(self.d[j]) > len(m):
+                        m = self.d[j].copy()
+                    
+            m += [s[i]]
+            self.d[i] = m
+        return max(self.d, key=self.p)
 
+    def p(self, k):
+        return len(self.d[k])
 
 j = TaskJ()
-j1 = j.get([3, 29, 5, 5, 5, 5, 28, 7, 10, 42, 12])
-print(j.d, len(j.d))
+j1 = j.get([3, 29, 5, 5, 28, 7])
+print(j.d)
+print(j.d[j1])
