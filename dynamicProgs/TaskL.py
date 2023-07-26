@@ -1,4 +1,4 @@
-class TaskL:
+class TaskJ:
     def __init__(self) -> None:
         self.d = {}
 
@@ -8,15 +8,21 @@ class TaskL:
             p = True
             for k in self.d.keys():
                 if self.d[k][-1] > s[i]:
-                    self.d[k] = self.d[k - 1] + [s[i]]
+                    if k == 0:
+                        self.d[0] = [s[i]]
+                    else:
+                        self.d[k] = self.d[k - 1] + [s[i]]
                     p = False
-                if self.d[k][-1] == s[i]:
+                    break
+                elif self.d[k][-1] == s[i]:
                     p = False
+                    break
             if p:
                 self.d[len(self.d.keys())] = self.d[len(self.d.keys()) - 1] + [s[i]]
+            print(self.d, i, s[i])
         return self.d
 
 
-j = TaskL()
-j1 = j.get([3, 29, 5, 5, 5, 5, 28, 7, 10, 42, 12])
+j = TaskJ()
+j1 = j.get([3, 5, 29, 4, 5, 2, 3, 28, 7, 10, 42, 12])
 print(j.d, len(j.d))
