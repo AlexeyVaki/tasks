@@ -11,14 +11,13 @@ class TaskJ:
     def get(self, s):
         self.d.append([s[0]])
         for i in range(1, len(s)):
-            k = bisect_left(self.d, s[i], key=g)
-            if k >= len(self.d):
-                self.d.append(self.d[-1] + [s[i]])
+            b_l = bisect_left([i[-1] for i in self.d], s[i])
+            if b_l == 0:
+                self.d[0] == [s[i]] 
+            elif b_l < len(self.d):
+                self.d[b_l] = self.d[b_l - 1] + [s[i]]
             else:
-                if k == 0:
-                    self.d[k] = [s[i]]
-                else:
-                    self.d[k] = self.d[k - 1] + [s[i]]
+                self.d.append(self.d[-1] + [s[i]])
             print(self.d, i, s[i])
         return self.d
 
